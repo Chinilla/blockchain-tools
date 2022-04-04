@@ -106,7 +106,7 @@ def blockchain_tools_cmd_nft_recover(
     db_bc_cursor.execute(
         f"SELECT * "
         f"FROM coin_record "
-        f"WHERE spent == 0 "
+        f"WHERE spent_index == 0 "
         f"AND timestamp <= (strftime('%s', 'now') - {delay}) "
         f"AND puzzle_hash LIKE '{contract_hash_hex}' "
         f"ORDER BY timestamp DESC")

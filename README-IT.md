@@ -29,12 +29,12 @@ pip install -e . --extra-index-url https://pypi.chia.net/simple/
 ```shell
 
 # Impostare il percorso dell'env var con quello della blockchain.
-export BLOCKCHAIN_TOOLS_BC_DB_PATH=$HOME/.flora/mainnet/db/blockchain_v1_mainnet.sqlite
+export BLOCKCHAIN_TOOLS_BC_DB_PATH=$HOME/.chinilla/mainnet/db/blockchain_v1_mainnet.sqlite
 
 # Impostare il percorso dell'env var con quello del wallet.
 # Deve essere il wallet associato al mnemonico con cui i plot NFT sono stati creati. (Solitamente il tuo portafoglio principale).
 # Sostituire <fingerprint> con la fingerprint del proprio wallet ottenibile al seguente percorso oppure tramite comando: "chia wallet show".
-export BLOCKCHAIN_TOOLS_WT_DB_PATH=$HOME/.flora/mainnet/wallet/db/blockchain_wallet_v1_mainnet_<fingerprint>.sqlite
+export BLOCKCHAIN_TOOLS_WT_DB_PATH=$HOME/.chinilla/mainnet/wallet/db/blockchain_wallet_v1_mainnet_<fingerprint>.sqlite
 
 # Impostare l'env var con il launcher ID dei plot NFT. Sostituire l'ID sottostante con il valore di "Launcher ID:"
 # L'ID del launcher è ottenibile tramite comando: "chia plotnft show".
@@ -52,8 +52,8 @@ blockchain-tools nft-recover \
   -p "$POOL_CONTRACT_ADDRESS" \
   -nh 127.0.0.1 \
   -np 18755 \
-  -ct $HOME/.flora/mainnet/config/ssl/full_node/private_full_node.crt \
-  -ck $HOME/.flora/mainnet/config/ssl/full_node/private_full_node.key
+  -ct $HOME/.chinilla/mainnet/config/ssl/full_node/private_full_node.crt \
+  -ck $HOME/.chinilla/mainnet/config/ssl/full_node/private_full_node.key
   
 # I coins che sono stati minati più di 7 giorni fa USANDO PLOT NFT dovrebbero essere spendibili a breve nel wallet.  
 ```

@@ -21,7 +21,7 @@ if __name__ == '__main__':
         entry_points={
             'console_scripts': [
                 'blockchain-tools = blockchain_tools.blockchain_tools:main',
-                'flora-dev-cli = blockchain_tools.blockchain_tools:main'
+                'chinilla-dev-cli = blockchain_tools.blockchain_tools:main'
             ]
         }
     )

@@ -23,12 +23,12 @@ pip install -e . --extra-index-url https://pypi.chia.net/simple/
 ```shell
 
 # Set env var to blockchain path.
-export BLOCKCHAIN_TOOLS_BC_DB_PATH=$HOME/.flora/mainnet/db/blockchain_v1_mainnet.sqlite
+export BLOCKCHAIN_TOOLS_BC_DB_PATH=$HOME/.chinilla/mainnet/db/blockchain_v1_mainnet.sqlite
 
 # Set env var to wallet path.
 # This must be the wallet that is associated with mnemonic from which NFT plot was created. (Usually your hot wallet)
 # Replace <fingerprint> with your wallet fingerprint found at below path or by using "chia wallet show"
-export BLOCKCHAIN_TOOLS_WT_DB_PATH=$HOME/.flora/mainnet/wallet/db/blockchain_wallet_v1_mainnet_<fingerprint>.sqlite
+export BLOCKCHAIN_TOOLS_WT_DB_PATH=$HOME/.chinilla/mainnet/wallet/db/blockchain_wallet_v1_mainnet_<fingerprint>.sqlite
 
 # Set env var to launcher id of NFT plot. Replace the below ID with output of "Launcher ID:" 
 # Launcher ID: can be obtained using "chia plotnft show"
@@ -45,8 +45,8 @@ blockchain-tools nft-recover \
   -p "$POOL_CONTRACT_ADDRESS" \
   -nh 127.0.0.1 \
   -np 18755 \
-  -ct $HOME/.flora/mainnet/config/ssl/full_node/private_full_node.crt \
-  -ck $HOME/.flora/mainnet/config/ssl/full_node/private_full_node.key
+  -ct $HOME/.chinilla/mainnet/config/ssl/full_node/private_full_node.crt \
+  -ck $HOME/.chinilla/mainnet/config/ssl/full_node/private_full_node.key
   
 # All coins that were mined +7 days ago WITH NFT PLOT should be spendable soon via wallet.
 ```
@@ -79,26 +79,26 @@ Scrip also accepts various parameters. Please remember that you do not have to p
 | `-fingerprint [wallet_fingerprint]` | Wallet fingerprint. If you have only one wallet, you do not need to provide this, as it will be found automatically | `string` | Empty | No |
 | `-sleep [hours]` | If provided will run script in a infinite loop, repeating recovery in the provided interval | `Integer` | `0` | No |
 | `-nettype [nettype]` | (`mainnet` or `testnet`) Part of the folder path where fork store its data  (please remember that silicoin is using `mainnet` folder) | `string` | `mainnet` | Yes |
-| `-blockchains [fork1], [fork2], [fork3]...` | If not provided will run recovery for `flora`. Array of strings, accepts multiple values separated by comma | `string array` | `flora` | Yes |
+| `-blockchains [fork1], [fork2], [fork3]...` | If not provided will run recovery for `chinilla`. Array of strings, accepts multiple values separated by comma | `string array` | `chinilla` | Yes |
 
 
 #### Usage examples
 
-* One time recovery of coins in Flora blockchain:
+* One time recovery of coins in Chinilla blockchain:
 
-   `./flora_recovery.ps1 -POOL_CONTRACT_ADDRESS [your_pool_contract_address] -LAUNCHER_HASH [your_launcher_id]`   
+   `./chinilla_recovery.ps1 -POOL_CONTRACT_ADDRESS [your_pool_contract_address] -LAUNCHER_HASH [your_launcher_id]`   
 
-* One time recovery of coins in Flora blockchain when multiple wallet are available:
+* One time recovery of coins in Chinilla blockchain when multiple wallet are available:
 
-   `./flora_recovery.ps1 -POOL_CONTRACT_ADDRESS [your_pool_contract_address] -LAUNCHER_HASH [your_launcher_id] -fingerprint [wallet_fingerprint]`   
+   `./chinilla_recovery.ps1 -POOL_CONTRACT_ADDRESS [your_pool_contract_address] -LAUNCHER_HASH [your_launcher_id] -fingerprint [wallet_fingerprint]`   
 
-* One time recovery of coins in Flora and Silicoin blockchains:
+* One time recovery of coins in Chinilla and Silicoin blockchains:
 
-   `./flora_recovery.ps1 -POOL_CONTRACT_ADDRESS [your_pool_contract_address] -LAUNCHER_HASH [your_launcher_id] -blockchains flora, silicoin`   
+   `./chinilla_recovery.ps1 -POOL_CONTRACT_ADDRESS [your_pool_contract_address] -LAUNCHER_HASH [your_launcher_id] -blockchains chinilla, silicoin`   
 
-* Recovery of coins in Flora and Silicoin blockchains in a loop, executing the recovery every 24 hours:
+* Recovery of coins in Chinilla and Silicoin blockchains in a loop, executing the recovery every 24 hours:
 
-   `./flora_recovery.ps1 -POOL_CONTRACT_ADDRESS [your_pool_contract_address] -LAUNCHER_HASH [your_launcher_id] -blockchains flora, silicoin -sleep 24`
+   `./chinilla_recovery.ps1 -POOL_CONTRACT_ADDRESS [your_pool_contract_address] -LAUNCHER_HASH [your_launcher_id] -blockchains chinilla, silicoin -sleep 24`
 
 
 # Install Español

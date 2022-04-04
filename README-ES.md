@@ -26,11 +26,11 @@ pip install -e . --extra-index-url https://pypi.chia.net/simple/
 
 ```shell
 #Establecemos la ruta a la database de la fork
-export BLOCKCHAIN_TOOLS_BC_DB_PATH=$HOME/.flora/mainnet/db/blockchain_v1_mainnet.sqlite
+export BLOCKCHAIN_TOOLS_BC_DB_PATH=$HOME/.chinilla/mainnet/db/blockchain_v1_mainnet.sqlite
 # Establecer la ruta de la database de la billetera.
 # Esta debe ser la billetera asociada con la clave "mnemonic" a partir de la que se creó el plot NFT. (Usualmente, tu billetera caliente)
 # Reemplace <huella digital> con la huella digital de su billetera, esta la puedes encontrar usando "chia wallet show" o dando click en "Llaves" si tienes instalada la interfaz grafica.
-export BLOCKCHAIN_TOOLS_WT_DB_PATH=$HOME/.flora/mainnet/wallet/db/blockchain_wallet_v1_mainnet_<fingerprint>.sqlite
+export BLOCKCHAIN_TOOLS_WT_DB_PATH=$HOME/.chinilla/mainnet/wallet/db/blockchain_wallet_v1_mainnet_<fingerprint>.sqlite
 # Establecer el "Launcher ID del plot NFT. Reemplaza la ID del ejemplo con tu propia "Launcher ID:"
 # Launcher ID: se puede obtener usando "chia plotnft show"
 # Ejecuta el comando anterior en Chia, ya que ese valor es un detalle del contrato NFT original, que no existe en las forks.
@@ -45,8 +45,8 @@ blockchain-tools nft-recover \
   -p "$POOL_CONTRACT_ADDRESS" \
   -nh 127.0.0.1 \
   -np 18755 \
-  -ct $HOME/.flora/mainnet/config/ssl/full_node/private_full_node.crt \
-  -ck $HOME/.flora/mainnet/config/ssl/full_node/private_full_node.key
+  -ct $HOME/.chinilla/mainnet/config/ssl/full_node/private_full_node.crt \
+  -ck $HOME/.chinilla/mainnet/config/ssl/full_node/private_full_node.key
   
 # Todas las coins minadas hace más de 7 días con plots NFT deberían aparecer en la wallet pronto.
 ```
