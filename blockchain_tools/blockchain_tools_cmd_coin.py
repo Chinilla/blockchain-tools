@@ -1,26 +1,26 @@
 import click
 import sqlite3
 
-from fd_cli.fd_cli_assert import (
-    fd_cli_assert_env_set
+from blockchain_tools.blockchain_tools_assert import (
+    blockchain_tools_assert_env_set
 )
 
-from fd_cli.fd_cli_env import (
-    FD_CLI_ENV_BC_DB_PATH
+from blockchain_tools.blockchain_tools_env import (
+    BLOCKCHAIN_TOOLS_ENV_BC_DB_PATH
 )
 
-from fd_cli.fd_cli_print import (
-    fd_cli_print_none,
-    fd_cli_print_coin_many
+from blockchain_tools.blockchain_tools_print import (
+    blockchain_tools_print_none,
+    blockchain_tools_print_coin_many
 )
 
 
-def fd_cli_cmd_coin(
+def blockchain_tools_cmd_coin(
         ctx: click.Context,
         by: str,
         value: str
 ):
-    fd_cli_assert_env_set(FD_CLI_ENV_BC_DB_PATH)
+    blockchain_tools_assert_env_set(BLOCKCHAIN_TOOLS_ENV_BC_DB_PATH)
 
     db_bc_cursor: sqlite3.Cursor = ctx.obj['bc_db'].cursor()
     coin_records: list = []
@@ -50,7 +50,7 @@ def fd_cli_cmd_coin(
         coin_records = db_bc_cursor.fetchall()
 
     if coin_records is None or len(coin_records) == 0:
-        fd_cli_print_none(pre=1)
+        blockchain_tools_print_none(pre=1)
         return
 
-    fd_cli_print_coin_many(coin_records, pre=0)
+    blockchain_tools_print_coin_many(coin_records, pre=0)

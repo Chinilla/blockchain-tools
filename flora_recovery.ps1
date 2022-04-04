@@ -1,25 +1,25 @@
 ﻿param (
     [string]$fingerprint,
     [int]$sleep = 0,
-    [string]$nettype = "mainnet", 
-    [string[]]$blockchains = "flora",
+    [string]$nettype = "vanillanet", 
+    [string[]]$blockchains = "chinilla",
     [Parameter(Mandatory=$True)][string]$LAUNCHER_HASH,
     [Parameter(Mandatory=$True)][string]$POOL_CONTRACT_ADDRESS)
 
 Install-Module powershell-Yaml -Scope CurrentUser
 Push-Location
 
-function Install-fdcli {
-    if (Test-Path $fdcli_check -PathType Leaf) {
-        write-log "fd-cli already installed"
+function Install-blockchaintools {
+    if (Test-Path $blockchaintools_check -PathType Leaf) {
+        write-log "blockchain-tools already installed"
     }
     else
     {
         
         Set-Location $Env:Userprofile
-        git clone https://github.com/Flora-Network/fd-cli
-        write-log "fd-cli not present. Installing"  
-        Set-Location fd-cli
+        git clone https://github.com/Chinilla/blockchain-tools
+        write-log "blockchain-tools not present. Installing"  
+        Set-Location blockchain-tools
         python -m venv venv
         .\venv\Scripts\activate
         pip install -e . --extra-index-url https://pypi.chia.net/simple/
@@ -131,28 +131,28 @@ function Terminate {
 }
 function Run-Recovery 
 {
-    Write-log "Started the fd-cli recovery proces for $blockchain"
-    Set-Location $Env:Userprofile\fd-cli
+    Write-log "Started the blockchain-tools recovery proces for $blockchain"
+    Set-Location $Env:Userprofile\blockchain-tools
     .\venv\Scripts\activate
-    $fdcli_output = fd-cli nft-recover -l $LAUNCHER_HASH -p $POOL_CONTRACT_ADDRESS -nh 127.0.0.1 -np $RpcPort -ct $blockchainpath/config/ssl/full_node/private_full_node.crt -ck $blockchainpath/config/ssl/full_node/private_full_node.key  | Out-String
-    Write-log $fdcli_output
+    $blockchaintools_output = blockchain-tools nft-recover -l $LAUNCHER_HASH -p $POOL_CONTRACT_ADDRESS -nh 127.0.0.1 -np $RpcPort -ct $blockchainpath/config/ssl/full_node/private_full_node.crt -ck $blockchainpath/config/ssl/full_node/private_full_node.key  | Out-String
+    Write-log $blockchaintools_output
     deactivate
     Pop-Location
-    Write-log "Finished the fd-cli recovery proces"
+    Write-log "Finished the blockchain-tools recovery proces"
    
     
 }
 
-$fdcli_check = "$Env:Userprofile\fd-cli\venv\Scripts\activate" 
-$LogFile = "$Env:Userprofile\fd-cli\fd-cli-output.log"
-Install-fdcli
+$blockchaintools_check = "$Env:Userprofile\blockchain-tools\venv\Scripts\activate" 
+$LogFile = "$Env:Userprofile\blockchain-tools\blockchain-tools-output.log"
+Install-blockchaintools
 
 Do {
     Foreach ($blockchain in $blockchains) {
         $blockchainpath = "$Env:Userprofile\.$blockchain\$nettype" 
-        $Env:FD_CLI_BC_DB_PATH = Get-Blockckchaindb ($blockchainpath)
+        $Env:BLOCKCHAIN_TOOLS_BC_DB_PATH = Get-Blockckchaindb ($blockchainpath)
         
-        $Env:FD_CLI_WT_DB_PATH = Get-Walletdb ($blockchainpath)
+        $Env:BLOCKCHAIN_TOOLS_WT_DB_PATH = Get-Walletdb ($blockchainpath)
         $RpcPort = Get-Rpcport ($blockchainpath)
         Run-Recovery 
     }

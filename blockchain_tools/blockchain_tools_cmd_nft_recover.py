@@ -29,27 +29,27 @@ from chia.types.blockchain_format.sized_bytes import (
     bytes32
 )
 
-from fd_cli.fd_cli_assert import (
-    fd_cli_assert_env_set
+from blockchain_tools.blockchain_tools_assert import (
+    blockchain_tools_assert_env_set
 )
 
-from fd_cli.fd_cli_cst import (
-    FD_CLI_CST_AGGREGATED_SIGNATURE
+from blockchain_tools.blockchain_tools_cst import (
+    BLOCKCHAIN_TOOLS_CST_AGGREGATED_SIGNATURE
 )
 
-from fd_cli.fd_cli_env import (
-    FD_CLI_ENV_BC_DB_PATH,
-    FD_CLI_ENV_WT_DB_PATH
+from blockchain_tools.blockchain_tools_env import (
+    BLOCKCHAIN_TOOLS_ENV_BC_DB_PATH,
+    BLOCKCHAIN_TOOLS_ENV_WT_DB_PATH
 )
 
-from fd_cli.fd_cli_print import (
-    fd_cli_print_raw,
-    fd_cli_print_coin_lite_many,
-    fd_cli_print_value
+from blockchain_tools.blockchain_tools_print import (
+    blockchain_tools_print_raw,
+    blockchain_tools_print_coin_lite_many,
+    blockchain_tools_print_value
 )
 
 
-def fd_cli_cmd_nft_recover(
+def blockchain_tools_cmd_nft_recover(
         ctx: click.Context,
         delay: int,
         launcher_hash: str,
@@ -61,8 +61,8 @@ def fd_cli_cmd_nft_recover(
         cert_ca_path: str
 ) -> None:
     pre: int = 1
-    fd_cli_assert_env_set(FD_CLI_ENV_BC_DB_PATH)
-    fd_cli_assert_env_set(FD_CLI_ENV_WT_DB_PATH)
+    blockchain_tools_assert_env_set(BLOCKCHAIN_TOOLS_ENV_BC_DB_PATH)
+    blockchain_tools_assert_env_set(BLOCKCHAIN_TOOLS_ENV_WT_DB_PATH)
 
     delay_u64: uint64 = uint64(delay)
     launcher_hash_b32: bytes32 = bytes32(hexstr_to_bytes(launcher_hash))
@@ -98,7 +98,7 @@ def fd_cli_cmd_nft_recover(
                 break
 
     if program_puzzle_hex is None:
-        fd_cli_print_raw('A valid puzzle program could not be created for the given arguments and the selected wallet.',
+        blockchain_tools_print_raw('A valid puzzle program could not be created for the given arguments and the selected wallet.',
                          pre=pre)
         return
 
@@ -120,12 +120,12 @@ def fd_cli_cmd_nft_recover(
             coin_records.append(coin)
 
     if len(coin_records) == 0:
-        fd_cli_print_raw(f'No coins are eligible for recovery yet. '
+        blockchain_tools_print_raw(f'No coins are eligible for recovery yet. '
                          f'Notice that 604800 seconds must pass since coin creation to recover it.', pre=pre)
         return
     else:
-        fd_cli_print_raw('Coins eligible for recovery:', pre=pre)
-        fd_cli_print_coin_lite_many(coin_records, pre=pre + 1)
+        blockchain_tools_print_raw('Coins eligible for recovery:', pre=pre)
+        blockchain_tools_print_coin_lite_many(coin_records, pre=pre + 1)
 
     coin_solutions: list[dict] = []
 
@@ -169,7 +169,7 @@ def fd_cli_cmd_nft_recover(
                 verify=cert_ca_path if cert_ca_path else False,
                 json={
                     'spend_bundle': {
-                        'aggregated_signature': FD_CLI_CST_AGGREGATED_SIGNATURE,
+                        'aggregated_signature': BLOCKCHAIN_TOOLS_CST_AGGREGATED_SIGNATURE,
                         'coin_solutions': coin_solutions_b
                     }
                 })
@@ -187,7 +187,7 @@ def fd_cli_cmd_nft_recover(
                     verify=cert_ca_path if cert_ca_path else False,
                     json={
                         'spend_bundle': {
-                            'aggregated_signature': FD_CLI_CST_AGGREGATED_SIGNATURE,
+                            'aggregated_signature': BLOCKCHAIN_TOOLS_CST_AGGREGATED_SIGNATURE,
                             'coin_spends': coin_solutions_b
                         }
                     })
@@ -198,25 +198,25 @@ def fd_cli_cmd_nft_recover(
                 exception = e
 
         if guard_success:
-            fd_cli_print_raw(
+            blockchain_tools_print_raw(
                 f'A new network transaction has been sent to recover a total of '
                 f'{balance_batch / (10 ** 12):.12f} coins.',
                 pre=pre)
             balance_recovered += balance_batch
         else:
-            fd_cli_print_raw(
+            blockchain_tools_print_raw(
                 'An error occurred while sending the recovery transaction.', pre=pre)
 
             if exception is not None:
-                fd_cli_print_raw(exception, pre=pre)
+                blockchain_tools_print_raw(exception, pre=pre)
 
     if balance_recovered == 0:
-        fd_cli_print_raw(
+        blockchain_tools_print_raw(
             'Coins could not be recovered. '
             'Please check your input parameters, network connection and try again.', pre=pre)
         return
 
-    fd_cli_print_raw('', pre=pre)
-    fd_cli_print_raw(f'Sent transactions to recover a total of '
+    blockchain_tools_print_raw('', pre=pre)
+    blockchain_tools_print_raw(f'Sent transactions to recover a total of '
                      f'{balance_recovered / (10 ** 12):.12f} coins.', pre=pre)
-    fd_cli_print_raw(f'Coins should be spendable in few network confirmations.', pre=pre)
+    blockchain_tools_print_raw(f'Coins should be spendable in few network confirmations.', pre=pre)

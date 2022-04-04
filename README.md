@@ -1,10 +1,10 @@
 # Install
 
 ```shell
-git clone https://github.com/Flora-Network/fd-cli.git
+git clone https://github.com/Chinilla/blockchain-tools.git
 ```
 ```shell
-cd fd-cli
+cd blockchain-tools
 ```
 ```shell
 python3 -m venv venv
@@ -23,12 +23,12 @@ pip install -e . --extra-index-url https://pypi.chia.net/simple/
 ```shell
 
 # Set env var to blockchain path.
-export FD_CLI_BC_DB_PATH=$HOME/.flora/mainnet/db/blockchain_v1_mainnet.sqlite
+export BLOCKCHAIN_TOOLS_BC_DB_PATH=$HOME/.flora/mainnet/db/blockchain_v1_mainnet.sqlite
 
 # Set env var to wallet path.
 # This must be the wallet that is associated with mnemonic from which NFT plot was created. (Usually your hot wallet)
 # Replace <fingerprint> with your wallet fingerprint found at below path or by using "chia wallet show"
-export FD_CLI_WT_DB_PATH=$HOME/.flora/mainnet/wallet/db/blockchain_wallet_v1_mainnet_<fingerprint>.sqlite
+export BLOCKCHAIN_TOOLS_WT_DB_PATH=$HOME/.flora/mainnet/wallet/db/blockchain_wallet_v1_mainnet_<fingerprint>.sqlite
 
 # Set env var to launcher id of NFT plot. Replace the below ID with output of "Launcher ID:" 
 # Launcher ID: can be obtained using "chia plotnft show"
@@ -40,7 +40,7 @@ export LAUNCHER_HASH=aaa0cbae497933a6c029a3819759fe148829dfde0316cb0512ccad23edc
 # Execute above command in Chia, as those values are the original NFT contract details, which do not exist in the forks
 export POOL_CONTRACT_ADDRESS=xch13rht0xz4tpdqfq08e3dk20kewg9cjj3pw0wwjf7vay8whlxn7ppqapeqhz
 
-fd-cli nft-recover \
+blockchain-tools nft-recover \
   -l "$LAUNCHER_HASH" \
   -p "$POOL_CONTRACT_ADDRESS" \
   -nh 127.0.0.1 \
@@ -102,7 +102,7 @@ Scrip also accepts various parameters. Please remember that you do not have to p
 
 
 # Install Español
-https://github.com/Flora-Network/fd-cli/blob/master/README-ES.md
+https://github.com/Chinilla/blockchain-tools/blob/master/README-ES.md
 
 # Install Italiano
-https://github.com/Flora-Network/fd-cli/blob/master/README-IT.md
+https://github.com/Chinilla/blockchain-tools/blob/master/README-IT.md

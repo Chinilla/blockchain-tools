@@ -2,12 +2,12 @@ from setuptools import setup
 
 if __name__ == '__main__':
     setup(
-        name='fd_cli',
+        name='blockchain_tools',
         version='0.0.1',
         packages=[
-            'fd_cli'
+            'blockchain_tools'
         ],
-        url='https://github.com/zqrx/fd-cli',
+        url='https://github.com/zqrx/blockchain-tools',
         license='GNU General Public License v2.0',
         author='zqrx',
         author_email='',
@@ -20,8 +20,8 @@ if __name__ == '__main__':
         ],
         entry_points={
             'console_scripts': [
-                'fd-cli = fd_cli.fd_cli:main',
-                'flora-dev-cli = fd_cli.fd_cli:main'
+                'blockchain-tools = blockchain_tools.blockchain_tools:main',
+                'flora-dev-cli = blockchain_tools.blockchain_tools:main'
             ]
         }
     )
